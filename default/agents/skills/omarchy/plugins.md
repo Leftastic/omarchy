@@ -51,12 +51,17 @@ Use the `omarchy plugin` group for the whole lifecycle of installed plugins:
 
 ```bash
 omarchy plugin list
-omarchy plugin add <git-url> --enable
+omarchy plugin add <git-url> --enable --yes # installs third-party code
 omarchy plugin enable <id> [placement]
 omarchy plugin disable <id>      # keep it installed, unload it
 omarchy plugin remove <id> --yes # disable, back up (non-git), delete, rescan
-omarchy plugin update [id]       # update git-managed plugins
+omarchy plugin update [id] --yes # update git-managed plugins
 ```
+
+`add`, `update`, and `remove` ask for confirmation, and without a terminal
+they exit with "refusing to continue without confirmation; pass --yes".
+`add` and `update` pull third-party code that runs unsandboxed inside
+`omarchy-shell`, so get the user's OK before passing `--yes` to them.
 
 Prefer these over hand-editing `~/.config/omarchy/shell.json` or deleting
 plugin folders to add or remove plugins: `remove` disables the plugin over
